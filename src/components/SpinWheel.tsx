@@ -2,10 +2,30 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import spinWheelImage from "@/assets/spin-wheel.jpg";
+import WinPopup from "./WinPopup";
 
 const SpinWheel = () => {
   const [isSpinning, setIsSpinning] = useState(false);
   const [freeSpinsLeft, setFreeSpinsLeft] = useState(2);
+  const [winTier, setWinTier] = useState<number | null>(null);
+  const [winPrize, setWinPrize] = useState("");
+
+  const generateRandomWin = () => {
+    const random = Math.random();
+    
+    // Different probabilities for each tier
+    if (random < 0.45) {
+      return { tier: 1, prize: `${Math.floor(Math.random() * 50) + 10} SPIN` };
+    } else if (random < 0.75) {
+      return { tier: 2, prize: `${Math.floor(Math.random() * 100) + 50} SPIN` };
+    } else if (random < 0.90) {
+      return { tier: 3, prize: `${Math.floor(Math.random() * 250) + 100} SPIN` };
+    } else if (random < 0.98) {
+      return { tier: 4, prize: `${Math.floor(Math.random() * 500) + 250} SPIN` };
+    } else {
+      return { tier: 5, prize: `${Math.floor(Math.random() * 5000) + 1000} SPIN + NFT!` };
+    }
+  };
 
   const handleSpin = (type: 'free' | 'premium') => {
     setIsSpinning(true);
@@ -16,11 +36,28 @@ const SpinWheel = () => {
     // Simulate spin duration
     setTimeout(() => {
       setIsSpinning(false);
+      
+      // Generate random win after spin completes
+      const win = generateRandomWin();
+      setWinTier(win.tier);
+      setWinPrize(win.prize);
     }, 3000);
   };
 
+  const handleWinPopupClose = () => {
+    setWinTier(null);
+    setWinPrize("");
+  };
+
   return (
-    <div className="flex flex-col items-center space-y-8">
+    <>
+      <WinPopup 
+        tier={winTier} 
+        prize={winPrize} 
+        onClose={handleWinPopupClose} 
+      />
+      
+      <div className="flex flex-col items-center space-y-8">
       {/* Jackpot Display */}
       <div className="text-center space-y-2">
         <h2 className="text-2xl font-bold text-gold animate-shimmer bg-gradient-to-r from-gold via-warning to-gold bg-[length:200%_100%] bg-clip-text text-transparent">
@@ -91,6 +128,7 @@ const SpinWheel = () => {
         </div>
       </Card>
     </div>
+    </>
   );
 };
 
