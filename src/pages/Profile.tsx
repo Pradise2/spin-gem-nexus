@@ -62,113 +62,124 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {/* Player Stats */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Trophy className="w-5 h-5 text-gold" />
-                <span>Player Stats</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Total Spins:</span>
-                <span className="font-medium">{playerStats.totalSpins}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Premium Spins:</span>
-                <span className="font-medium">{playerStats.premiumSpins}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Total Winnings:</span>
-                <span className="font-medium text-gold">{playerStats.totalWinnings}</span>
-              </div>
-            </CardContent>
-          </Card>
+        <Tabs defaultValue="overview" className="w-full">
+          <TabsList className="grid grid-cols-2 w-[400px] mx-auto">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="collection">NFT Collection</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="overview" className="mt-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Player Stats */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center space-x-2">
+                    <Trophy className="w-5 h-5 text-gold" />
+                    <span>Player Stats</span>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Total Spins:</span>
+                    <span className="font-medium">{playerStats.totalSpins}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Premium Spins:</span>
+                    <span className="font-medium">{playerStats.premiumSpins}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Total Winnings:</span>
+                    <span className="font-medium text-gold">{playerStats.totalWinnings}</span>
+                  </div>
+                </CardContent>
+              </Card>
 
-          {/* Referral */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Share2 className="w-5 h-5 text-primary" />
-                <span>Referral Link</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center space-x-2">
-                <span className="text-sm text-muted-foreground">Your code:</span>
-                <code className="bg-muted px-2 py-1 rounded text-sm font-mono">{playerStats.referralCode}</code>
-                <Button size="sm" variant="outline" onClick={copyReferralCode}>
-                  <Copy className="w-3 h-3" />
-                </Button>
-                <Button size="sm" variant="outline">
-                  <Share2 className="w-3 h-3" />
-                </Button>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Referrals:</span>
-                <span className="font-medium">{playerStats.referrals}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Earnings:</span>
-                <span className="font-medium text-gold">{playerStats.referralEarnings}</span>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* NFT Collection */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="flex items-center space-x-2">
-                <Image className="w-5 h-5 text-secondary" />
-                <span>MY NFT COLLECTION</span>
-              </CardTitle>
-              <div className="flex items-center space-x-2">
-                <Filter className="w-4 h-4 text-muted-foreground" />
-                <div className="flex space-x-1">
-                  {filters.map((filter) => (
-                    <Button
-                      key={filter}
-                      size="sm"
-                      variant={selectedFilter === filter ? "default" : "outline"}
-                      onClick={() => setSelectedFilter(filter)}
-                      className="text-xs"
-                    >
-                      {filter}
+              {/* Referral */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center space-x-2">
+                    <Share2 className="w-5 h-5 text-primary" />
+                    <span>Referral Link</span>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-sm text-muted-foreground">Your code:</span>
+                    <code className="bg-muted px-2 py-1 rounded text-sm font-mono">{playerStats.referralCode}</code>
+                    <Button size="sm" variant="outline" onClick={copyReferralCode}>
+                      <Copy className="w-3 h-3" />
                     </Button>
+                    <Button size="sm" variant="outline">
+                      <Share2 className="w-3 h-3" />
+                    </Button>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Referrals:</span>
+                    <span className="font-medium">{playerStats.referrals}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Earnings:</span>
+                    <span className="font-medium text-gold">{playerStats.referralEarnings}</span>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="collection" className="mt-6">
+            {/* NFT Collection */}
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="flex items-center space-x-2">
+                    <Image className="w-5 h-5 text-secondary" />
+                    <span>MY NFT COLLECTION</span>
+                  </CardTitle>
+                  <div className="flex items-center space-x-2">
+                    <Filter className="w-4 h-4 text-muted-foreground" />
+                    <div className="flex space-x-1">
+                      {filters.map((filter) => (
+                        <Button
+                          key={filter}
+                          size="sm"
+                          variant={selectedFilter === filter ? "default" : "outline"}
+                          onClick={() => setSelectedFilter(filter)}
+                          className="text-xs"
+                        >
+                          {filter}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {filteredNFTs.map((nft) => (
+                    <Card key={nft.id} className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
+                      <div className="aspect-square bg-muted flex items-center justify-center relative">
+                        <Image className="w-16 h-16 text-muted-foreground" />
+                        <Badge 
+                          className={`absolute top-2 right-2 text-xs ${getRarityColor(nft.rarity)} text-white`}
+                        >
+                          {nft.rarity}
+                        </Badge>
+                      </div>
+                      <CardContent className="p-3">
+                        <h4 className="font-medium text-sm truncate">{nft.name}</h4>
+                      </CardContent>
+                    </Card>
                   ))}
                 </div>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {filteredNFTs.map((nft) => (
-                <Card key={nft.id} className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
-                  <div className="aspect-square bg-muted flex items-center justify-center relative">
-                    <Image className="w-16 h-16 text-muted-foreground" />
-                    <Badge 
-                      className={`absolute top-2 right-2 text-xs ${getRarityColor(nft.rarity)} text-white`}
-                    >
-                      {nft.rarity}
-                    </Badge>
+                {filteredNFTs.length === 0 && (
+                  <div className="text-center py-8 text-muted-foreground">
+                    No NFTs found for the selected filter.
                   </div>
-                  <CardContent className="p-3">
-                    <h4 className="font-medium text-sm truncate">{nft.name}</h4>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-            {filteredNFTs.length === 0 && (
-              <div className="text-center py-8 text-muted-foreground">
-                No NFTs found for the selected filter.
-              </div>
-            )}
-          </CardContent>
-        </Card>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
