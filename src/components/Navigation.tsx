@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Wallet, Trophy, User, Coins } from "lucide-react";
+import { Wallet, Trophy, User, Coins, ShoppingCart } from "lucide-react";
 
 const Navigation = () => {
   const location = useLocation();
@@ -35,6 +35,18 @@ const Navigation = () => {
           >
             <Trophy className="w-4 h-4" />
             <span>Tournaments</span>
+          </Link>
+          
+          <Link 
+            to="/marketplace" 
+            className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
+              location.pathname === "/marketplace" 
+                ? "bg-primary text-primary-foreground" 
+                : "text-muted-foreground hover:text-foreground hover:bg-muted"
+            }`}
+          >
+            <ShoppingCart className="w-4 h-4" />
+            <span>Marketplace</span>
           </Link>
           
           <Link 
