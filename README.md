@@ -5,7 +5,6 @@
 
 Welcome to SpinGame, a premium crypto gaming platform where users can spin to win SPIN tokens, collect rare NFTs, and compete in high-stakes tournaments. This project is built with a modern, fast, and scalable tech stack including React, Vite, TypeScript, and Tailwind CSS.
 
-![SpinGame Screenshot](https://lovable.dev/opengraph-image-p98pqg.png)
 
 ## ✨ Key Features
 
